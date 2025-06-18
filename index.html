@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>XCX & KYZX - 魔法般的相遇</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #1a1a2e 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, #fff 0%, #e6e6fa 50%, #dda0dd 100%);
+            border-radius: 50%;
+            animation: gentleTwinkle 4s ease-in-out infinite;
+            box-shadow: 0 0 4px rgba(221, 160, 221, 0.6);
+        }
+
+        @keyframes gentleTwinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.2);
+            }
+        }
+
+        /* 浪漫的浮动爱心 */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 182, 193, 0.7);
+            animation: romanticFloat 20s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(255, 182, 193, 0.5));
+        }
+
+        @keyframes romanticFloat {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translateY(-40px) translateX(30px) rotate(90deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-80px) translateX(-20px) rotate(180deg);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-40px) translateX(-35px) rotate(270deg);
+                opacity: 0.6;
+            }
+        }
+
+        /* 情侣专属的玫瑰花瓣飘落 */
+        .rose-petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .petal {
+            position: absolute;
+            font-size: 16px;
+            color: rgba(255, 192, 203, 0.6);
+            animation: petalFall 25s linear infinite;
+            filter: drop-shadow(0 0 6px rgba(255, 192, 203, 0.4));
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 爱情光环效果 */
+        .love-aura {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            margin: -150px 0 0 -150px;
+            border: 2px solid rgba(255, 182, 193, 0.1);
+            border-radius: 50%;
+            animation: loveAura 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes loveAura {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+                border-color: rgba(255, 182, 193, 0.1);
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.6;
+                border-color: rgba(255, 182, 193, 0.3);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 3;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+        }
+
+        .main-title {
+            font-size: 3.5em;
+            background: linear-gradient(45deg, #e6e6fa, #dda0dd, #d8bfd8, #e6e6fa);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gentleGradientText 4s ease infinite;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            position: relative;
+            filter: drop-shadow(0 0 20px rgba(221, 160, 221, 0.3));
+        }
+
+        @keyframes gentleGradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: rgba(230, 230, 250, 0.9);
+            font-style: italic;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(221, 160, 221, 0.4);
+        }
+
+        .names {
+            font-size: 2em;
+            color: #e6e6fa;
+            margin-top: 20px;
+            letter-spacing: 3px;
+            animation: loveGlow 2.5s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
+            font-weight: 300;
+            position: relative;
+        }
+
+        .names::before {
+            content: '💝';
+            position: absolute;
+            left: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            animation: loveSymbol 3s ease-in-out infinite;
+        }
+
+        .names::after {
+            content: '💝';
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            animation: loveSymbol 3s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes loveGlow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(255, 182, 193, 1), 0 0 40px rgba(255, 105, 180, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes loveSymbol {
+            0%, 100% {
+                transform: translateY(-50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-50%) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        .photo-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 50px 0;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(221, 160, 221, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(221, 160, 221, 0.05), transparent);
+            animation: gentleShimmer 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gentleShimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .photo-container {
+            text-align: center;
+            position: relative;
+        }
+
+        .main-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                        0 0 0 1px rgba(221, 160, 221, 0.3);
+            transition: all 0.6s ease;
+            position: relative;
+            z-index: 2;
+            filter: brightness(1.05) contrast(1.1);
+        }
+
+        .main-photo:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(221, 160, 221, 0.5),
+                        0 0 50px rgba(221, 160, 221, 0.2);
+        }
+
+        .photo-caption {
+            margin-top: 30px;
+            font-size: 1.1em;
+            color: rgba(230, 230, 250, 0.9);
+            font-style: italic;
+            line-height: 1.8;
+            text-shadow: 0 0 10px rgba(221, 160, 221, 0.3);
+        }
+
+        .story-section {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 50px 0;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(221, 160, 221, 0.15);
+        }
+
+        .story-title {
+            font-size: 2.2em;
+            color: #e6e6fa;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            font-weight: 300;
+            text-shadow: 0 0 20px rgba(221, 160, 221, 0.4);
+        }
+
+        .story-title::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(221, 160, 221, 0.6), rgba(230, 230, 250, 0.8), rgba(221, 160, 221, 0.6));
+            margin: 20px auto;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(221, 160, 221, 0.3);
+        }
+
+        .story-text {
+            font-size: 1.2em;
+            line-height: 1.9;
+            color: rgba(230, 230, 250, 0.9);
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(221, 160, 221, 0.2);
+        }
+
+        .magic-elements {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .magic-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            color: #e6e6fa;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 220px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: translateY(0);
+            transition: all 0.5s ease;
+            border: 1px solid rgba(221, 160, 221, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(221, 160, 221, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .magic-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                        0 0 30px rgba(221, 160, 221, 0.2);
+            border-color: rgba(221, 160, 221, 0.4);
+        }
+
+        .magic-card:hover::before {
+            left: 100%;
+        }
+
+        .magic-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+            animation: gentleFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(221, 160, 221, 0.6));
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% {
+                transform: translateY(0px);
+                filter: drop-shadow(0 0 15px rgba(221, 160, 221, 0.6));
+            }
+            50% {
+                transform: translateY(-8px);
+                filter: drop-shadow(0 0 25px rgba(221, 160, 221, 0.8));
+            }
+        }
+
+        .magic-text {
+            font-size: 1.1em;
+            font-weight: 300;
+            text-shadow: 0 0 10px rgba(221, 160, 221, 0.3);
+        }
+
+
+
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: rgba(230, 230, 250, 0.8);
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '💕 Forever & Always 💕';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9em;
+            color: rgba(255, 182, 193, 0.8);
+            animation: loveMessage 4s ease-in-out infinite;
+        }
+
+        @keyframes loveMessage {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .date {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 20px 40px;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 25px 0;
+            border: 1px solid rgba(221, 160, 221, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 15px rgba(221, 160, 221, 0.4);
+        }
+
+
+
+        .photo-container::after {
+            content: '💕';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 1.8em;
+            animation: loveHeartbeat 2s ease-in-out infinite;
+            z-index: 3;
+            filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.8));
+        }
+
+        .photo-container::before {
+            content: '💖';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 1.5em;
+            animation: loveHeartbeat 2s ease-in-out infinite 0.5s;
+            z-index: 3;
+            filter: drop-shadow(0 0 12px rgba(255, 182, 193, 0.6));
+        }
+
+        @keyframes loveHeartbeat {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px 10px;
+                margin-bottom: 30px;
+            }
+
+            .main-title {
+                font-size: 2.2em;
+                letter-spacing: 1px;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .names {
+                font-size: 1.6em;
+                letter-spacing: 1px;
+            }
+
+            .photo-section, .story-section {
+                padding: 20px;
+                margin: 20px 0;
+                border-radius: 15px;
+            }
+
+            .story-title {
+                font-size: 1.8em;
+            }
+
+            .story-text {
+                font-size: 1.1em;
+                line-height: 1.6;
+            }
+
+            .magic-elements {
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .magic-card {
+                min-width: 280px;
+                max-width: 320px;
+                padding: 25px;
+                margin: 0 auto;
+            }
+
+            .magic-icon {
+                font-size: 2.5em;
+            }
+
+            .photo-caption {
+                font-size: 1em;
+                line-height: 1.5;
+            }
+
+            .footer {
+                padding: 30px 15px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.8em;
+            }
+
+            .names {
+                font-size: 1.4em;
+            }
+
+            .photo-section, .story-section {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            .story-title {
+                font-size: 1.5em;
+            }
+
+            .magic-card {
+                min-width: 250px;
+                padding: 20px;
+            }
+
+            .magic-icon {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    <div class="rose-petals" id="rosePetals"></div>
+    <div class="love-aura"></div>
+
+
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">魔法般的相遇</h1>
+            <p class="subtitle">当魔术师遇见了他的观众</p>
+            <div class="names">XCX ❤️ KYZX</div>
+        </header>
+
+        <section class="photo-section">
+            <div class="photo-container">
+                <!-- 这里是修正过的地方 -->
+                <img src="https://i.postimg.cc/44PwZ65Z/Screenshot-2025-06-12-23-57-07-598-com-miui-gallery-edit.jpg" class="main-photo" alt="KYZX performing magic" />
+                <p class="photo-caption">
+                    "这一刻，你正在台上施展魔法<br>
+                    而我在台下，不知不觉被你深深吸引<br>
+                    那时的我们还不知道，这就是我们爱情故事的开始"
+                </p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <h2 class="story-title">我们的故事</h2>
+            <p class="story-text">
+                在那个特别的夜晚，你站在台上，身着西装，展示着魔术技艺。<br>
+                我坐在台下，被你的每一个动作深深吸引。<br>
+                当你邀请我配合表演时，我的心跳得好快。<br>
+                那一刻，我们的目光相遇，仿佛有魔法在空中飞舞。<br><br>
+                你不知道，你施展的最大魔法，就是让我爱上了你。
+            </p>
+
+            <div class="magic-elements">
+                <div class="magic-card">
+                    <span class="magic-icon">🃏</span>
+                    <p class="magic-text">神奇的扑克牌<br>变出了奇迹</p>
+                </div>
+                <div class="magic-card">
+                    <span class="magic-icon">✨</span>
+                    <p class="magic-text">闪耀的魔法<br>点亮了我的心</p>
+                </div>
+                <div class="magic-card">
+                    <span class="magic-icon">💕</span>
+                    <p class="magic-text">最美的魔术<br>是我们的相遇</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="date">
+                纪念我们的第一次相遇
+            </div>
+            <p>愿我们的爱情像魔法一样，永远充满惊喜与美好 ✨</p>
+        </footer>
+    </div>
+
+    <script>
+        // 创建星星效果
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 80;
+
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // 创建浪漫的浮动爱心
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts');
+            const hearts = ['💕', '💖', '💗', '💘', '💙', '💜'];
+            const numberOfHearts = 8;
+
+            for (let i = 0; i < numberOfHearts; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 20 + 's';
+                heart.style.animationDuration = (Math.random() * 5 + 20) + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // 创建玫瑰花瓣飘落效果
+        function createRosePetals() {
+            const petalsContainer = document.getElementById('rosePetals');
+
+            setInterval(() => {
+                const petals = ['🌸', '🌺', '🌹', '💐'];
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerHTML = petals[Math.floor(Math.random() * petals.length)];
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (Math.random() * 5 + 20) + 's';
+                petal.style.animationDelay = Math.random() * 2 + 's';
+                petalsContainer.appendChild(petal);
+
+                setTimeout(() => {
+                    petal.remove();
+                }, 25000);
+            }, 3000);
+        }
+
+
+
+        // 添加点击爱心效果
+        function createClickLove(e) {
+            const loveSymbols = ['💕', '💖', '💗', '💘', '💝', '💞'];
+            const love = document.createElement('div');
+            love.innerHTML = loveSymbols[Math.floor(Math.random() * loveSymbols.length)];
+            love.style.position = 'fixed';
+            love.style.left = e.clientX + 'px';
+            love.style.top = e.clientY + 'px';
+            love.style.fontSize = '20px';
+            love.style.pointerEvents = 'none';
+            love.style.zIndex = '1000';
+            love.style.animation = 'clickLoveFloat 2.5s ease-out forwards';
+            love.style.filter = 'drop-shadow(0 0 15px rgba(255, 182, 193, 0.8))';
+            document.body.appendChild(love);
+
+            setTimeout(() => {
+                love.remove();
+            }, 2500);
+        }
+
+        // 添加点击爱心动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes clickLoveFloat {
+                0% {
+                    transform: translateY(0) scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+                30% {
+                    transform: translateY(-40px) scale(1.4) rotate(15deg);
+                    opacity: 0.9;
+                }
+                70% {
+                    transform: translateY(-80px) scale(1.1) rotate(-10deg);
+                    opacity: 0.6;
+                }
+                100% {
+                    transform: translateY(-150px) scale(0.3) rotate(0deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 初始化
+        window.addEventListener('load', () => {
+            createStars();
+            createFloatingHearts();
+            createRosePetals();
+
+            // 添加点击事件
+            document.addEventListener('click', createClickLove);
+        });
+
+        // 添加平滑滚动效果
+        document.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.stars');
+            // 确保 parallax 元素存在时再操作
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
